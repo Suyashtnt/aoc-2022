@@ -105,26 +105,21 @@ fn main() {
 mod tests {
     use super::*;
 
+    const INPUT: &str = "A Y\n\
+B X\n\
+C Z\n\
+    ";
+
     #[test]
     fn test_part1() {
-        let input = "A Y\n\
-B X\n\
-C Z\n"
-            .trim();
-
-        let rounds = input.lines().map(Round::from_part_1).collect::<Vec<_>>();
+        let rounds = INPUT.lines().map(Round::from_part_1).collect::<Vec<_>>();
 
         assert_eq!(generate_solution(rounds), 15);
     }
 
     #[test]
     fn test_part2() {
-        let input = "A Y\n\
-B X\n\
-C Z\n"
-            .trim();
-
-        let rounds = input.lines().map(Round::from_part_2).collect::<Vec<_>>();
+        let rounds = INPUT.lines().map(Round::from_part_2).collect::<Vec<_>>();
 
         assert_eq!(generate_solution(rounds), 12);
     }
