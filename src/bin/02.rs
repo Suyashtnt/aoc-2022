@@ -96,7 +96,7 @@ fn main() {
 
     let part_2_rounds = trimmed.lines().map(Round::from_part_2).collect::<Vec<_>>();
 
-    print!("Part 2: {}", generate_solution(part_2_rounds));
+    println!("Part 2: {}", generate_solution(part_2_rounds));
 }
 
 #[cfg(test)]
