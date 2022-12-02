@@ -1,6 +1,8 @@
 use std::fs::read_to_string;
-
 use strum::EnumString;
+
+use Move::*;
+use WhatToDo::*;
 
 #[derive(Debug, PartialEq, EnumString, Copy, Clone)]
 enum Move {
@@ -44,18 +46,16 @@ impl Round {
 
         Self {
             enemy: move1,
-            you: match what_to_do {
-                WhatToDo::Win => match move1 {
-                    Rock => Paper,
-                    Paper => Scissors,
-                    Scissors => Rock,
-                },
-                WhatToDo::Lose => match move1 {
-                    Rock => Scissors,
-                    Paper => Rock,
-                    Scissors => Paper,
-                },
-                WhatToDo::Draw => move1,
+            you: match (what_to_do, move1) {
+                (Lose, Rock) => Scissors,
+                (Lose, Paper) => Rock,
+                (Lose, Scissors) => Paper,
+
+                (Win, Rock) => Paper,
+                (Win, Paper) => Scissors,
+                (Win, Scissors) => Rock,
+
+                (Draw, _) => move1,
             },
         }
     }
@@ -79,8 +79,6 @@ impl Round {
         shape_score + win_score
     }
 }
-
-use Move::*;
 
 fn generate_solution(rounds: Vec<Round>) -> i32 {
     rounds
