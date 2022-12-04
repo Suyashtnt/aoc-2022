@@ -20,8 +20,8 @@ fn part_1(input: Lines) -> u32 {
     input
         .filter(|line| {
             let (pair1, pair2) = parse_pair(line);
-            pair1.start() <= pair2.start() && pair1.end() >= pair2.end()
-                || pair2.start() <= pair1.start() && pair2.end() >= pair1.end()
+            (pair1.contains(pair2.start()) && pair1.contains(pair2.end()))
+                || (pair2.contains(pair1.start()) && pair2.contains(pair1.end()))
         })
         .count() as u32
 }
@@ -29,8 +29,11 @@ fn part_1(input: Lines) -> u32 {
 fn part_2(input: Lines) -> u32 {
     input
         .filter(|line| {
-            let (mut pair1, mut pair2) = parse_pair(line);
-            pair1.any(|n| pair2.contains(&n)) || pair2.any(|n| pair1.contains(&n))
+            let (pair1, pair2) = parse_pair(line);
+            pair1.contains(pair2.start())
+                || pair1.contains(pair2.end())
+                || pair2.contains(pair1.start())
+                || pair2.contains(pair1.end())
         })
         .count() as u32
 }
